@@ -53,14 +53,10 @@ public class Platformer extends PApplet{
 			bounceBack(blue);
 		}
 		private void bounceBack(Vector value) {
-			if (value.x > 255) {
-				value.x = 255;
-				value.y = 0;
+			if (value.z != 0 && (value.x > 255 && value.z > 0 || value.x < 0 && value.z < 0)) {
 				value.z *= -1;
-			}else if (value.x < 0) {
-				value.x = 0;
-				value.y = 0;
-				value.z *= -1;
+			}else if (value.x > 255 && value.y > 0 || value.x < 0 && value.y < 0) {
+				value.y *= -1;
 			}
 		}
 	}
