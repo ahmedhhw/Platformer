@@ -2,8 +2,8 @@ package backgroundUtils;
 import processing.core.*;;
 public class Circle {
 	PApplet parent;
-	Vector position;
-	Vector size;
+	public Vector position;
+	public Vector size;
 	public Circle(PApplet parent, Vector position, Vector size) {
 		this.parent = parent;
 		this.position = position;
