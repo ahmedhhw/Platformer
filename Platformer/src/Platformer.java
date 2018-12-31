@@ -34,9 +34,9 @@ public class Platformer extends PApplet{
 		circle.draw();
 	}
 	class Color {
-		Vector red;
-		Vector green;
-		Vector blue;
+		Vector red; // Saves red
+		Vector green; // Saves green
+		Vector blue; // Saves blue
 		public Color (Vector red, Vector green, Vector blue) {
 			this.red = red;
 			this.green = green;
