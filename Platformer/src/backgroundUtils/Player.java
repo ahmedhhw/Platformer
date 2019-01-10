@@ -46,14 +46,12 @@ public class Player {
 		return this.position.y + this.size.y >= parent.height;
 	}
 	private void handlePositionUpdate() {
-		// TODO Auto-generated method stub
 		//System.out.println("Position of player:" + this.position.y);
-		System.out.println("Velocity of player:" + this.velocity.y);
+		//System.out.println("Velocity of player:" + this.velocity.y);
 		this.position.y += this.velocity.y;
 		this.position.z += this.velocity.y;
 	}
 	private void handleGravity() {
-		// TODO Auto-generated method stub
 		this.velocity.y += this.gravity;
 	}
 	public void handleTheControls() {

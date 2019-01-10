@@ -3,6 +3,7 @@ import java.nio.channels.ShutdownChannelGroupException;
 import javax.xml.bind.ParseConversionEvent;
 
 import backgroundUtils.Circle;
+import backgroundUtils.Hitbox;
 import backgroundUtils.Player;
 import backgroundUtils.Vector;
 import processing.core.*;
@@ -20,12 +21,14 @@ public class Platformer extends PApplet{
 		gravity = 0.2f;
 		player1 = new Player(this, new Vector(width / 2, height - 100), new Vector(100,100),gravity);
 		//this.frameRate(1);
+		
 	}
 	@Override
 	public void settings() {
 		  size(1920, 900);
 	}
-	
+	Hitbox testBox;
+	Hitbox testerBox;
 	@Override
 	public void draw() {
 		background(0);
