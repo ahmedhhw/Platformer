@@ -20,8 +20,4 @@ public class Vector {
 		this.y = (float)y;
 		this.z = (float)z;
 	}
-	public void changeVector() {
-		this.x += this.y;
-		this.y += this.z;
-	}
 }
