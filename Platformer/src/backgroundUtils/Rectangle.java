@@ -14,6 +14,7 @@ public class Rectangle {
 		velocity = 0;
 	}
 	public void draw() {
+		parent.fill(255);
 		parent.rect(position.x,position.y,size.x,size.y);
 	}
 	public void update() {

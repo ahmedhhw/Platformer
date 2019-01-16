@@ -12,6 +12,7 @@ public class Circle {
 		velocity = 0;
 	}
 	public void draw() {
+		parent.fill(0,255,0);
 		parent.ellipse(position.x,position.y,size.x,size.y);
 	}
 	public void update() {

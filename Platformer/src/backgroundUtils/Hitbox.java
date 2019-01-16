@@ -15,7 +15,7 @@ public class Hitbox extends Rectangle {
 	 */
 	public void show() {
 		parent.fill(255,0,0,100);
-		this.draw();
+		parent.rect(position.x,position.y,size.x,size.y);
 	}
 	/**
 	 * For A to be on top of B:
@@ -35,7 +35,7 @@ public class Hitbox extends Rectangle {
 		float ARight = this.position.x + this.size.x;
 		float BLeft = other.position.x;
 		float BRight = other.position.x + other.size.x;
-		return (ATopPart < BTopPart) && (ABottomPart > BTopPart) && (ABottomPart < BBottomPart) && !((ALeft > BRight) || (ARight < BLeft));
+		return (ATopPart < BTopPart) && (ABottomPart >= BTopPart) && (ABottomPart < BBottomPart) && !((ALeft > BRight) || (ARight < BLeft));
 	}
 	/**
 	 * For A to be touching left of B:

@@ -5,6 +5,7 @@ import java.util.PrimitiveIterator.OfDouble;
 import javax.sound.midi.Soundbank;
 import javax.xml.bind.util.ValidationEventCollector;
 
+import levels.abstractLevel;
 import processing.core.PApplet;
 
 /**
@@ -17,7 +18,9 @@ public class Player {
 	private PApplet parent;
 	private Hitbox hitbox; 
 	private Vector velocity;
+	private int controlSpeed;
 	private float gravity;
+	private abstractLevel currentLevel;
 	
 	/**
 	 * Constructor
@@ -25,16 +28,31 @@ public class Player {
 	 * @param position
 	 * @param size
 	 * @param gravity
+	 * @param currentLevel 
 	 */
-	public Player(PApplet parent, Vector position, Vector size, float gravity) {
+	public Player(PApplet parent, Vector position, Vector size, float gravity, abstractLevel currentLevel) {
 		this.parent = parent;
 		this.gravity = gravity;
+		this.currentLevel = currentLevel;
 		hitbox = new Hitbox(parent,position,size);
 		this.hitbox.size.z = this.hitbox.size.y;
 		this.hitbox.position.z = this.hitbox.position.y;
-		velocity = new Vector(5, 0);
+		velocity = new Vector(0, 0);
+		controlSpeed = 5;
 	}
 	
+	public void moveRight() {
+		this.velocity.x = controlSpeed;
+	}
+	public void moveLeft() {
+		this.velocity.x = -1 * controlSpeed;
+	}
+	public void resetMovement() {
+		this.velocity.x = 0;
+	}
+	public Hitbox getHitbox() {
+		return hitbox;
+	}
 	/**
 	 * Handles everything player related
 	 */
@@ -51,7 +69,7 @@ public class Player {
 	 * Handles physics
 	 */
 	private void handlePhysics() {
-		if (playerIsOnGround()) {
+		if (currentLevel.isOnTopOfPlatform(this) && parent.key != 'w') {
 			resetAndBringUp();
 		}else {
 			handleGravity();
@@ -66,7 +84,7 @@ public class Player {
 		this.velocity.y = 0;
 		
 		//Adjust player to correct location
-		this.hitbox.position.y = parent.height - this.hitbox.size.y; 
+		this.hitbox.position.y = currentLevel.getHeightOfPlatformBelow(this) - this.hitbox.size.y; 
 	}
 	
 	/**
@@ -84,6 +102,7 @@ public class Player {
 		//System.out.println("Velocity of player:" + this.velocity.y);
 		this.hitbox.position.y += this.velocity.y;
 		this.hitbox.position.z += this.velocity.y;
+		this.hitbox.position.x += this.velocity.x;
 	}
 	
 	/**
@@ -97,8 +116,6 @@ public class Player {
 	 * Handles controls
 	 */
 	public void handleTheControls() {
-		handleJumping();
-		handleMoving();
 		handleDucking();
 	}
 	
@@ -116,24 +133,12 @@ public class Player {
 	}
 	
 	/**
-	 *  Handles moving
-	 */
-	private void handleMoving() {
-		if (parent.keyPressed) {
-			if (parent.key == 'a') {
-				this.hitbox.position.x -= velocity.x;
-			}else if (parent.key == 'd') {
-				this.hitbox.position.x += velocity.x;
-			}
-		}
-	}
-	/**
 	 * Gives player initial speed if he is on ground and w is pressed
 	 */
-	private void handleJumping() {
-		if (parent.keyPressed && parent.key == 'w' && playerIsOnGround()) {
-			this.hitbox.position.y -= 1;
-			this.hitbox.position.z -= 1;
+	public void handleJumping() {
+		//System.out.println("On top of platform = " + currentLevel.isOnTopOfPlatform(this));
+		if (currentLevel.isOnTopOfPlatform(this)) {
+			//System.out.println("Should be jumping");
 			this.velocity.y = -10;
 		}
 	}
